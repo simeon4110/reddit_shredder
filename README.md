@@ -1,4 +1,4 @@
-# reddit_shredder
+# Reddit Shredder
 
 Simple script to nuke your reddit history.
 
