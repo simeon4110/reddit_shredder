@@ -17,10 +17,10 @@ def stringGenerator(size=36, chars=string.ascii_letters + string.digits):
     return "".join(random.choice(chars) for _ in range(size))
 
 reddit = praw.Reddit(client_id = '',
-					 client_secret = '',
-					 password = '',
-					 user_agent = 'testscript by /u/X_X_X',
-					 username = '')
+                     client_secret = '',
+                     password = '',
+                     user_agent = 'testscript by /u/X_X_X',
+                     username = '')
 
 for comment in reddit.user.me().comments.new(limit=None):
 	comment.edit(stringGenerator())
