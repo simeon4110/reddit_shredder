@@ -35,9 +35,9 @@ Simple script to delete all of your reddit posts and comments, based off a custo
    
 5) If everything works, add a cron script such as:
    
-   To run every hour:
+   To run every hour (replace PATH-TO-SCRIPT with correct path):
    
-   > 0 * * * * python3 /home/<your username>/reddit_shredder/shredder.py
+   > 0 * * * * python3 /PATH-TO-SCRIPT/shredder.py
    
    For optional logging:
    
@@ -47,4 +47,4 @@ Simple script to delete all of your reddit posts and comments, based off a custo
    
    Then change the crontab line to:
    
-   > 0 * * * * python3 /<path to script>/shredder.py >> /var/log/shredder.og 2>&1
+   > 0 * * * * python3 /PATH-TO-SCRIPT/shredder.py >> /var/log/shredder.og 2>&1
