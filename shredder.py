@@ -41,13 +41,23 @@ def main():
         if time > delta_now():
             comment.edit(string_generator())
             comment.delete()
+            print(comment, "deleted")
+        else:
+            print(comment, "skipped")
 
     # Iterates through submissions and nukes them, there is no way to overwrite
     # them like the comments
     for submission in my_submissions:
         # same story as the comments loop above, sans editing
         time = datetime.datetime.fromtimestamp(submission.created)
+        
+        # delete the submssion
         if time > delta_now():
             submission.delete()
+            print(submission, "deleted")
+        else:
+            print(submission, "skipped")
+            
+    print("Your Reddit account has been shredded successfully.")
 
 main()
