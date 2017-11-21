@@ -50,14 +50,14 @@ def main():
     for submission in my_submissions:
         # same story as the comments loop above, sans editing
         time = datetime.datetime.fromtimestamp(submission.created)
-        
+
         # delete the submssion
         if time > delta_now():
             submission.delete()
             print(submission, "deleted")
         else:
             print(submission, "skipped")
-            
+
     print("Your Reddit account has been shredded successfully.")
 
 main()
