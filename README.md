@@ -43,7 +43,7 @@ Simple script to delete all of your reddit posts and comments, based off a custo
    
    > sudo touch /var/log/shredder.log
    
-   > sudo chmod 600 /var/log/shredder.log %% sudo chown root:root /var/log/shredder.log
+   > sudo chmod 600 /var/log/shredder.log && sudo chown root:root /var/log/shredder.log
    
    Then change the crontab line to:
    
