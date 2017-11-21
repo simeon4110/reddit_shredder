@@ -1,30 +1,53 @@
-""" Script that selects and shreds Reddit posts and comments. This script
-DOES NOT DISCRIMINATE it will overwrite your entire post and comment history
-with no exceptions.
-
-Make yourself an Reddit app (google it) and input your info in the praw.Reddit
-object below. 
+""" Application to select and shred Reddit posts and comments. Set how much
+of your history you'd like to preserve with the MAXIMUM_AGE constant below.
 
 Written by Josh Harkema -- josh@joshharkema.com
 """
 
-import praw
 import random
 import string
+import datetime
+import praw
 
-def stringGenerator(size=36, chars=string.ascii_letters + string.digits):
-    """ Returns a random string of numbers and letters. """
+
+MAXIMUM_AGE = 24  # in hours
+
+def delta_now():
+    """ Returns now + MAXIMUM_AGE for the comparison."""
+    delta = datetime.datetime.now() + datetime.timedelta(hours=MAXIMUM_AGE)
+    return delta
+
+def string_generator(size=36, chars=string.ascii_letters + string.digits):
+    """ Returns a random string of numbers and letters."""
     return "".join(random.choice(chars) for _ in range(size))
 
-reddit = praw.Reddit(client_id = '',
-                     client_secret = '',
-                     password = '',
-                     user_agent = 'testscript by /u/X_X_X',
-                     username = '')
+def main():
+    """ The reddit object, everything is case sensitive."""
+    reddit = praw.Reddit(client_id='',
+                         client_secret='',
+                         password='',
+                         user_agent='testscript by /u/X_X_X',
+                         username='')
 
-for comment in reddit.user.me().comments.new(limit=None):
-	comment.edit(stringGenerator())
-	comment.delete()
+    # calls comments and submissions as iterable objects
+    my_comments = reddit.user.me().comments.new(limit=None)
+    my_submissions = reddit.user.me().submissions.new(limit=None)
 
-for submission in reddit.user.me().submissions.new(limit=None):
-	submission.delete()
+    for comment in my_comments:
+        # time object, pretty self explanatory
+        time = datetime.datetime.fromtimestamp(comment.created)
+
+        # this overwrites the comment, saves it and deletes it
+        if time > delta_now():
+            comment.edit(string_generator())
+            comment.delete()
+
+    # Iterates through submissions and nukes them, there is no way to overwrite
+    # them like the comments
+    for submission in my_submissions:
+        # same story as the comments loop above, sans editing
+        time = datetime.datetime.fromtimestamp(submission.created)
+        if time > delta_now():
+            submission.delete()
+
+main()
