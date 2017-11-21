@@ -48,3 +48,5 @@ Simple script to delete all of your reddit posts and comments, based off a custo
    Then change the crontab line to:
    
    > 0 * * * * python3 /PATH-TO-SCRIPT/shredder.py >> /var/log/shredder.og 2>&1
+
+I'm not sure how a Windows / Mac user could use this script. If anyone has any ideas let me know.
