@@ -4,9 +4,9 @@ of your history you'd like to preserve with the MAXIMUM_AGE constant below.
 Written by Josh Harkema -- josh@joshharkema.com
 """
 
+import datetime
 import random
 import string
-import datetime
 import praw
 
 
