@@ -14,7 +14,7 @@ import praw
 MAXIMUM_AGE = 24  # in hours
 
 def delta_now():
-    """ Returns now + MAXIMUM_AGE for the comparison."""
+    """ Returns now - MAXIMUM_AGE for the comparison."""
     delta = datetime.datetime.now() - datetime.timedelta(hours=MAXIMUM_AGE)
     return delta
 
@@ -23,7 +23,7 @@ def string_generator(size=36, chars=string.ascii_letters + string.digits):
     return "".join(random.choice(chars) for _ in range(size))
 
 def main():
-    """ The reddit object, everything is case sensitive."""
+    """ Main function."""
     reddit = praw.Reddit(client_id='',
                          client_secret='',
                          password='',
