@@ -47,7 +47,7 @@ def main():
 			               % comment.body)
 
     # Iterates through submissions and nukes them, there is no way to
-	# overwrite them like the comments
+    # overwrite them like the comments
     for submission in my_submissions:
         time = datetime.datetime.fromtimestamp(submission.created)
         # delete the submssion
