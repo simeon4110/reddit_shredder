@@ -36,7 +36,6 @@ def main():
 
     for comment in my_comments:
         time = datetime.datetime.fromtimestamp(comment.created)
-        print(time, delta_now())
         # this overwrites the comment, saves it and deletes it
         if time < delta_now():
             comment.edit(string_generator())
