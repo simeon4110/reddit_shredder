@@ -11,7 +11,7 @@ import string
 import praw
 
 
-MAXIMUM_AGE = 24  # in hours 
+MAXIMUM_AGE = 24  # in hours
 
 def delta_now():
     """ Returns now + MAXIMUM_AGE for the comparison."""
