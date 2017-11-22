@@ -53,7 +53,7 @@ def main():
             submission.delete()
             print(submission, "'%s' deleted" % submission.title)
         else:
-            print(submission, "'%s' skipped" % submission.body)
+            print(submission, "'%s' skipped" % submission.title)
 
     print("Your Reddit account has been shredded successfully.")
 
