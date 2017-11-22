@@ -15,7 +15,7 @@ MAXIMUM_AGE = 24  # in hours
 
 def delta_now():
     """ Returns now - MAXIMUM_AGE for the comparison."""
-    delta = datetime.datetime.now() - datetime.timedelta(hours=MAXIMUM_AGE)
+    delta = datetime.datetime.utcnow() - datetime.timedelta(hours=MAXIMUM_AGE)
     return delta
 
 def string_generator(size=36, chars=string.ascii_letters + string.digits):
@@ -36,13 +36,14 @@ def main():
 
     for comment in my_comments:
         time = datetime.datetime.fromtimestamp(comment.created)
+        print(time, delta_now())
         # this overwrites the comment, saves it and deletes it
         if time < delta_now():
             comment.edit(string_generator())
             comment.delete()
-            print(comment, "'%s' deleted" % comment.body)
+            print("Comment:", comment, "Body: '%s' DELETED" % comment.body)
         else:
-            print(comment, "'%s' skipped" % comment.body)
+            print("Comment:", comment, "Body: '%s' SKIPPED" % comment.body)
 
     # Iterates through submissions and nukes them, there is no way to overwrite
     # them like the comments
@@ -51,10 +52,11 @@ def main():
         # delete the submssion
         if time < delta_now():
             submission.delete()
-            print(submission, "'%s' deleted" % submission.title)
+            print("Submission:", submission, "Titled: '%s' DELETED" % submission.title)
         else:
-            print(submission, "'%s' skipped" % submission.title)
+            print("Submission:", submission, "Titled: '%s' SKIPPED" % submission.title)
 
-    print("Your Reddit account has been shredded successfully.")
+    print("At, %s, your Reddit account was shredded successfully." % datetime.datetime.now())
+
 
 main()
