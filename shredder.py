@@ -58,5 +58,4 @@ def main():
 
     print("At, %s, your Reddit account was shredded successfully." % datetime.datetime.now())
 
-
 main()
