@@ -7,14 +7,15 @@ Written by Josh Harkema -- josh@joshharkema.com
 import datetime
 import random
 import string
+
 import praw
 
 
-MAXIMUM_AGE = 24  # in hours
+MAXIMUM_AGE = 24  # in hours 
 
 def delta_now():
     """ Returns now + MAXIMUM_AGE for the comparison."""
-    delta = datetime.datetime.now() + datetime.timedelta(hours=MAXIMUM_AGE)
+    delta = datetime.datetime.now() - datetime.timedelta(hours=MAXIMUM_AGE)
     return delta
 
 def string_generator(size=36, chars=string.ascii_letters + string.digits):
@@ -34,29 +35,25 @@ def main():
     my_submissions = reddit.user.me().submissions.new(limit=None)
 
     for comment in my_comments:
-        # time object, pretty self explanatory
         time = datetime.datetime.fromtimestamp(comment.created)
-
         # this overwrites the comment, saves it and deletes it
-        if time > delta_now():
+        if time < delta_now():
             comment.edit(string_generator())
             comment.delete()
-            print(comment, "deleted")
+            print(comment, "'%s' deleted" % comment.body)
         else:
-            print(comment, "skipped")
+            print(comment, "'%s' skipped" % comment.body)
 
     # Iterates through submissions and nukes them, there is no way to overwrite
     # them like the comments
     for submission in my_submissions:
-        # same story as the comments loop above, sans editing
         time = datetime.datetime.fromtimestamp(submission.created)
-
         # delete the submssion
-        if time > delta_now():
+        if time < delta_now():
             submission.delete()
-            print(submission, "deleted")
+            print(submission, "'%s' deleted" % submission.title)
         else:
-            print(submission, "skipped")
+            print(submission, "'%s' skipped" % submission.body)
 
     print("Your Reddit account has been shredded successfully.")
 
