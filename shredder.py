@@ -14,10 +14,10 @@ import praw
 #   Enter Your Info Here   #
 ############################
 MAXIMUM_AGE = 24  # in hours
-CLIENT_ID =
-CLIENT_SECRET =
-PASSWORD =
-USERNAME =
+CLIENT_ID = ""
+CLIENT_SECRET = ""
+PASSWORD = ""
+USERNAME = ""
 
 
 def delta_now():
@@ -30,15 +30,17 @@ def delta_now():
     delta = datetime.datetime.utcnow() - datetime.timedelta(hours=MAXIMUM_AGE)
     return delta
 
+
 def string_generator(size=36, chars=string.ascii_letters + string.digits):
     """
     Returns a random string of numbers and letters.
 
     :param size: The length of the string.
-    :param chars: They type of characters.
+    :param chars: The type of characters.
     :return: A string of random characters.
     """
     return "".join(random.choice(chars) for _ in range(size))
+
 
 def main():
     """
@@ -46,7 +48,7 @@ def main():
 
     :return: Nothing, prints directly to the console.
     """
-    user_agent = str("test script by u/%s" % USERNAME)
+    user_agent = str("test script by /u/%s" % USERNAME)
     reddit = praw.Reddit(client_id=CLIENT_ID,
                          client_secret=CLIENT_SECRET,
                          password=PASSWORD,
@@ -64,25 +66,26 @@ def main():
             comment.edit(string_generator())
             comment.delete()
             print("Comment:", comment, "Overwriten with: '%s' DELETED"
-			               % comment.body)
+                  % comment.body)
         else:
             print("Comment:", comment, "Body: '%s' SKIPPED"
-			               % comment.body)
+                  % comment.body)
 
     # Iterates through submissions and nukes them, there is no way to
     # overwrite them like the comments
     for submission in my_submissions:
         time = datetime.datetime.fromtimestamp(submission.created)
-        # delete the submssion
+        # delete the submission
         if time < delta_now():
             submission.delete()
             print("Submission:", submission, "Titled: '%s' DELETED"
-			               % submission.title)
+                  % submission.title)
         else:
             print("Submission:", submission, "Titled: '%s' SKIPPED"
-			               % submission.title)
+                  % submission.title)
 
     print("At, %s, your Reddit account was shredded successfully."
-	         % datetime.datetime.now())
+          % datetime.datetime.now())
+
 
 main()
