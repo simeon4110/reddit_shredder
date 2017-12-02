@@ -10,25 +10,48 @@ import string
 
 import praw
 
-
+############################
+#   Enter Your Info Here   #
+############################
 MAXIMUM_AGE = 24  # in hours
+CLIENT_ID =
+CLIENT_SECRET =
+PASSWORD =
+USERNAME =
+
 
 def delta_now():
-    """ Returns now - MAXIMUM_AGE for the comparison."""
+    """
+    Creates a time object for the comment/post timestamp minus
+    MAXIMUM_AGE.
+
+    :return: A time object.
+    """
     delta = datetime.datetime.utcnow() - datetime.timedelta(hours=MAXIMUM_AGE)
     return delta
 
 def string_generator(size=36, chars=string.ascii_letters + string.digits):
-    """ Returns a random string of numbers and letters."""
+    """
+    Returns a random string of numbers and letters.
+
+    :param size: The length of the string.
+    :param chars: They type of characters.
+    :return: A string of random characters.
+    """
     return "".join(random.choice(chars) for _ in range(size))
 
 def main():
-    """ Main function."""
-    reddit = praw.Reddit(client_id='',
-                         client_secret='',
-                         password='',
-                         user_agent='testscript by /u/X_X_X',
-                         username='')
+    """
+    The actual shredder script. Connects to the Reddit API with PRAW.
+
+    :return: Nothing, prints directly to the console.
+    """
+    user_agent = str("test script by u/%s" % USERNAME)
+    reddit = praw.Reddit(client_id=CLIENT_ID,
+                         client_secret=CLIENT_SECRET,
+                         password=PASSWORD,
+                         user_agent=user_agent,
+                         username=USERNAME)
 
     # calls comments and submissions as iterable objects
     my_comments = reddit.user.me().comments.new(limit=None)
