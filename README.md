@@ -2,6 +2,12 @@
 
 Simple script to delete all of your reddit posts and comments, based off a customizable timedelta. This script overwrites your comments with a random string of letters and numbers; overwriting the comment purges it from Reddit's servers. 
 
+# Reddit Shredder Online
+
+I've written an webapp that does the same thing this script does.
+
+https://redditshredder.joshharkema.com/ 
+
 # Requirements
 
 1) Python 2.7 or 3.6.
