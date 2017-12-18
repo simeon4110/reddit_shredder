@@ -32,7 +32,7 @@ https://redditshredder.joshharkema.com/
 
 4) run:
    
-   > pip install requirements.txt
+   > pip install -r requirements.txt
    
    and test the script with:
    
