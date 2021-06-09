@@ -1,7 +1,7 @@
 certifi==2017.11.5
 chardet==3.0.4
 idna==2.6
-pip==9.0.1
+pip==19.2
 praw==5.2.0
 prawcore==0.12.0
 requests==2.18.4
